@@ -1,39 +1,56 @@
 #include <stdio.h>
-#include <string.h>
 
-int explode(char str1[], char splitter, char str2[][50]) {
-    char split[2];
-    split[0] = splitter;
-    split[1] = '\0';
-    int count = 0;
+int explode(char source[], char splitter, char result[][50])
+{
+    int textPos = 0;
+    int wordPos = 0;
+    int charPos = 0;
 
-    //ตัดต่อจากจุดที่ตัด
-    char *token = strtok(str1, split);
+    while (source[textPos] != '\0')
+    {
+        if (source[textPos] == splitter)
+        {
+            result[wordPos][charPos] = '\0';
+            wordPos++;
+            charPos = 0;
+        }
+        else
+        {
+            result[wordPos][charPos] = source[textPos];
+            charPos++;
+        }
 
-    while (token != NULL) {
-        strcpy(str2[count], token);
-        count++;
-
-        //ตัดต่อจากจุดที่ตัด
-        token = strtok(NULL, split);
+        textPos++;
     }
 
-    return count;
+    result[wordPos][charPos] = '\0';
+    wordPos++;
+
+    return wordPos;
 }
 
-int main() {
-    char str1[] = "I/Love/You";
-    char str2[10][50];
-    char splitter = '/';
+int main()
+{
+    char text[50];
+    char words[10][50];
+    char sep;
+    int total;
+    int i;
 
-    int count = explode(str1, splitter, str2);
+    printf("Enter text: ");
+    scanf("%s", text);
 
-    /*แสดงผล*/
-    for (int i = 0; i < count; i++) {
-        printf("str2[%d] = %s\n", i, str2[i]);
+    printf("Enter splitter: ");
+    scanf(" %c", &sep);
+
+    total = explode(text, sep, words);
+
+    for (i = 0; i < total; i++)
+    {
+        printf("str2[%d] = %s\n", i, words[i]);
     }
 
-    printf("count = %d\n", count);
+    printf("count = %d\n", total);
 
     return 0;
 }
