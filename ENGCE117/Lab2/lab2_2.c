@@ -10,24 +10,32 @@ int main() {
     char *out;
 
     out = reverse(text);
+
     // ใช้ printf เพื่อตรวจสอบผลลัพธ์
     printf("reverse: %s\n", out);
-    
+    free(out);
+
     return 0;
 }
 
 char* reverse(char str1[]) {
-    int i,j = 0;
+    int i = 0;
+    int pos  = 0;
     int length = strlen(str1); //เก็บความยาวของข้อความที่่รับมา 
-    char *str2 = (char *)malloc(length + 1 ); 
+    char *str2;
+
+    str2 = (char *)malloc(length + 1); 
+    if (str2 == NULL) {
+        return NULL;
+    }
 
     //Loopในการย้ายข้อความ
-    for (i = length -1; i >= 0; i--) { 
-        str2[j] = str1[i];
-        j++;
+    for (i = length - 1; i >= 0; i--) { 
+        str2[pos] = str1[i];
+        pos = pos + 1;
 
     }
-    
-    str2[j] = '\0';
+
+    str2[pos] = '\0';
     return str2;
 }
