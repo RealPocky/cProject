@@ -4,39 +4,34 @@
 void explode(char str1[], char splitter, char str2[][10], int *count);
 
 int main() {
-    char out[20][10]; 
-    int num;
-    explode("I/Love/You", '/', out, &num);
+    char out[20][10];
+    char text[] = "I/Love/You";
+    char spl = '/';
+    int num = 0;
+    explode(text, spl, out, &num);
     
-    //แสดงผล
-    printf("Count = %d\n", num);
+    /*แสดงผล*/
     for (int i = 0; i < num; i++) {
-        printf("str2[%d] = \"%s\"\n", i, out[i]);
+        printf("str2[%d] = %s\n", i, out[i]);
     }
+    printf("Count = %d\n", num);
+    
     return 0;
 }
 
 void explode(char str1[], char splitter, char str2[][10], int *count) {
-    int i = 0;
-    int j = 0; 
-    int k = 0; 
+    char delim[2] = {splitter, '\0'};
+    char *token;
+    
+    token = strtok(str1, delim);
+    while (token != NULL)
+    {
+        //แยกคำ และคัดลอกลงใน str2
+        strcpy(str2[*count], token);
+        (*count)++;
 
-    //วนลูปจนกว่าจะเจอค่า Null ใน str1 
-    while (str1[i] != '\0') { 
-
-        //ถ้าเจอ splitter ให้ขจบด้วยค่า Null และขึ้นบรรทัด รีเซ็ตค่า k ด้วย
-        if (str1[i] == splitter){
-            str2[j][k] = '\0';
-            j++;
-            k = 0;
-
-        } else { //ถ้าไม่เจอ ก็จะบันทึกข้อความ
-            str2[j][k] = str1[i];
-            k++;
-
-        }
-        i++; 
+        //เริ่มตัดคำจากตำแหน่งเดิมที่ตัดไว้ครั้งก่อน
+        token = strtok(NULL, delim);
     }
-    str2[j][k] = '\0';
-    *count = j + 1;
+   
 }
