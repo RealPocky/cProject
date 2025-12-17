@@ -1,37 +1,43 @@
 #include <stdio.h>
 
-struct student {
-    char name [20];
+struct student
+{
+    char name[20];
     int age;
     char sex;
     float gpa;
 };
-void upgrade (struct student *child);
+void upgrade(struct student *c);
 
 int main() {
+    struct student stu;
     char sexInput;  //เก็บเพศ
-
+    
     //รับค่าเพศเข้ามา 
-    if (scanf("%c", &sexInput) != 1) {       
-        return 1; 
+    if (scanf(" %c", &sexInput) != 1)
+    {
+        return 1;
     }
 
-    struct student stu; 
     stu.sex = sexInput;
     stu.gpa = 3.00;
 
-    upgrade(&stu); //ส่งที่อยู่ของเพศไป
+    upgrade(&stu);
 
-    printf("%.2f",stu.gpa);
+    printf("%.2f\n", stu.gpa);
+
     return 0;
     
 }
 
-void upgrade (struct student *child){
-    if (child->sex == 'M'){                 //M = Male
-        child->gpa = child->gpa * 1.10;     //เพศชาย +10 %
-
-    } else if (child->sex == 'F') {         //F = Female
-        child->gpa = child->gpa * 1.20;     //เพศหญิง +20 %
+void upgrade(struct student *c)
+{
+    if (c->sex == 'M')
+    {
+        c->gpa = c->gpa * 1.10;
+    }
+    else if (c->sex == 'F')
+    {
+        c->gpa = c->gpa * 1.20;
     }
 }
