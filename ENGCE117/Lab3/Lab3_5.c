@@ -49,5 +49,4 @@ struct student (*GetStudent (int *room))[10] {
         }
     }
     return data; //คืนค่ากลับ
-
 }
