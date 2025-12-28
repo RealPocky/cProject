@@ -9,54 +9,44 @@ struct studentNode {
     struct studentNode *next;
 };
 
-void SaveNode(struct studentNode *child, const char n[], int a, char s, float g);
-void GoNext2(struct studentNode **walk);
+void SaveNode( struct studentNode *child, char n[], int a, char s, float g );
+void GoNext2( struct studentNode **walk );
 
 int main() {
-    
-    struct studentNode *head, **ptr2;
+    struct studentNode *start, *now1, **now2;
 
-    
-    head = new struct studentNode;
-    SaveNode(head, "one", 6, 'M', 3.11);
+    start = new struct studentNode;
+    SaveNode( start, "one", 6, 'M', 3.11 );
 
-    head->next = new struct studentNode;
-    SaveNode(head->next, "two", 8, 'F', 3.22);
+    start->next = new struct studentNode;
+    SaveNode( start->next, "two", 8, 'F', 3.22 );
 
-    head->next->next = new struct studentNode;
-    SaveNode(head->next->next, "three", 10, 'M', 3.33);
+    start->next->next = new struct studentNode;
+    SaveNode( start->next->next, "three", 10, 'M', 3.33 );
 
-    head->next->next->next = new struct studentNode;
-    SaveNode(head->next->next->next, "four", 12, 'F', 3.44);
+    start->next->next->next = new struct studentNode;
+    SaveNode( start->next->next->next, "four", 12, 'F', 3.44 );
 
-    
-    ptr2 = &head;
+    now1 = start;
+    now2 = &start; 
 
-    // เรียกฟังก์ชัน
-    GoNext2(ptr2);
+    GoNext2( now2 ); 
 
-    
-    printf("%s ", (*ptr2)->name);
+    printf( "%s ", (*now2)->name ); //แสดงผล
 
     return 0;
 }
 
-void SaveNode(struct studentNode *child, const char n[], int a, char s, float g) {
-    strcpy(child->name, n);
+void SaveNode( struct studentNode *child, char n[], int a, char s, float g ) {
+    strcpy( child->name, n );
     child->age = a;
     child->sex = s;
     child->gpa = g;
 }
 
-// เขียนไส้ในฟังก์ชัน
-void GoNext2(struct studentNode **walk) {
-    
-    if ((*walk)->next != NULL) {
-        
-        
-        *walk = (*walk)->next;
+void GoNext2( struct studentNode **walk ) {
+    if ( walk != NULL && *walk != NULL && (*walk)->next != NULL ) {
 
-        // แสดงผล
-        printf("%s ", (*walk)->name);
+        *walk = (*walk)->next;
     }
 }
