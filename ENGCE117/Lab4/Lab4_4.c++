@@ -9,52 +9,47 @@ struct studentNode {
     struct studentNode *next;
 };
 
-
-void SaveNode(struct studentNode *child, char n[], int a, char s, float g);
-void GoNext1(struct studentNode **walk); 
+void SaveNode( struct studentNode *child, char n[], int a, char s, float g );
+void GoNext1( struct studentNode **walk );
 
 int main() {
-    
-    struct studentNode *head, *curr;
+    struct studentNode *start, *now1, **now2;
 
-    // สร้างโหนดและใส่ข้อมูล
-    head = new struct studentNode;
-    SaveNode(head, "one", 6, 'M', 3.11);
+    // สร้าง Node 
+    start = new struct studentNode;
+    SaveNode( start, "one", 6, 'M', 3.11 );
 
-    head->next = new struct studentNode;
-    SaveNode(head->next, "two", 8, 'F', 3.22);
+    start->next = new struct studentNode;
+    SaveNode( start->next, "two", 8, 'F', 3.22 );
 
-    head->next->next = new struct studentNode;
-    SaveNode(head->next->next, "three", 10, 'M', 3.33);
+    start->next->next = new struct studentNode;
+    SaveNode( start->next->next, "three", 10, 'M', 3.33 );
 
-    head->next->next->next = new struct studentNode;
-    SaveNode(head->next->next->next, "four", 12, 'F', 3.44);
+    start->next->next->next = new struct studentNode;
+    SaveNode( start->next->next->next, "four", 12, 'F', 3.44 );
 
-   
-    curr = head;
+    now1 = start;
+    now2 = &start;
 
-    
-    GoNext1(&curr);
+    GoNext1( &now1 );
 
-    printf("%s", curr->name);
+    // แสดงผล
+    printf( "%s ", now1->name );
 
     return 0;
 }
 
-// ฟังก์ชันสำหรับใส่ข้อมูลลงโหนด
-void SaveNode(struct studentNode *child, char n[], int a, char s, float g) {
-    strcpy(child->name, n);
+void SaveNode( struct studentNode *child, char n[], int a, char s, float g ) {
+    strcpy( child->name, n );
     child->age = a;
     child->sex = s;
     child->gpa = g;
 }
 
-void GoNext1(struct studentNode **walk) {
-   
-    if ((*walk)->next != NULL) {
-        
+void GoNext1( struct studentNode **walk ) {
+    // เช็คว่ามีโหนดถัดไปไหม
+    if ( walk != NULL && *walk != NULL && (*walk)->next != NULL ) {
+        // ขยับ now1 ไปตัวถัดไป
         *walk = (*walk)->next;
-
-        printf("%s\n", (*walk)->name);
     }
 }
